@@ -1,5 +1,5 @@
 import pandas as pd, numpy as np
-from pathlib import Path
+from fetch_data import fetch_nasdaq100_symbols, fetch_price_data
 
 DATA_DIR = Path("data")
 REPORT_DIR = Path("reports")
