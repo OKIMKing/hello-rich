@@ -1,9 +1,11 @@
-import pandas as pd, numpy as np
-from fetch_data import fetch_nasdaq100_symbols, fetch_price_data
+from pathlib import Path
+import pandas as pd
+import numpy as np
+import yfinance as yf
+import matplotlib.pyplot as plt
 
 DATA_DIR = Path("data")
-REPORT_DIR = Path("reports")
-REPORT_DIR.mkdir(exist_ok=True)
+DATA_DIR.mkdir(exist_ok=True)
 
 def backtest():
     fundamentals = pd.read_csv(DATA_DIR / "fundamentals.csv")
