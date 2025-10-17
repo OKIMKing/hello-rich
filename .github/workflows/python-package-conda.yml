@@ -3,7 +3,7 @@ name: Build and Backtest (Linux)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * 1'  # 每周一上午10点（UTC+8）自动运行
+    - cron: '0 2 * * 1'  # 每周一上午10点（UTC+8）运行
 
 jobs:
   build:
@@ -20,13 +20,14 @@ jobs:
 
     - name: Install dependencies
       run: |
+        cd nasdaq_backtest_template  # ← 进入包含 requirements.txt 的文件夹
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install yfinance pandas numpy matplotlib plotly dash fpdf
 
     - name: Run backtest
       run: |
-        cd nasdaq_backtest_2015回测
+        cd nasdaq_backtest_template
         python fetch_data.py
         python backtest.py
         python build_ppt.py
@@ -36,4 +37,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./nasdaq_backtest_2015回测/output
+        publish_dir: ./nasdaq_backtest_template/output
