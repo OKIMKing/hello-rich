@@ -1,0 +1,9 @@
+yfinance
+pandas
+numpy
+matplotlib
+plotly
+dash
+fpdf
+beautifulsoup4
+requests
