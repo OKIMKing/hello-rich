@@ -1,0 +1,39 @@
+name: Nasdaq100 Backtest
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'   # 每周一 10:00（UTC+8）运行
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install yfinance pandas numpy matplotlib plotly dash fpdf
+
+    - name: Run backtest
+      run: |
+        cd nasdaq_backtest_2015回测
+        python fetch_data.py || echo "Fetch data failed, skipping..."
+        python backtest.py
+        python build_ppt.py
+        python visual_dashboard.py
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./nasdaq_backtest_2015回测/output
