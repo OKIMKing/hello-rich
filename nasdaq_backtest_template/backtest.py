@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 DATA_DIR = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
